@@ -1,0 +1,13 @@
+version: '3'
+services:
+    bot:
+        image: copybot:latest
+        build: .
+        volumes: 
+            - /tmp/:/tmp
+        command: python3 -u app/main.py
+        stdin_open: true
+        tty: true
+        environment: 
+            LANG: C.UTF-8
+        network_mode: "host"
