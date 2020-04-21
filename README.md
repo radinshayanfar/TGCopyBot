@@ -6,9 +6,9 @@ This bot can copy (not forward) messages from a channel (which doesn't have admi
 
 ## How to use
 1. Rename `.env.example` as `.env`.
-```
-mv .env.example .env
-```
+    ```
+    mv .env.example .env
+    ```
 2. Obtain `api_id` and `api_hash` from [this link](https://my.telegram.org/apps) and fill it inside Telegram Configuration section of `.env` alongside other configurations (such as phone number of your user which acts as your bot)
 3. Run it and login to telegram (may take some minutes to build image for the first time):
     ```
