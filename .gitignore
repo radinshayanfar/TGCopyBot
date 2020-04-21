@@ -1,6 +1,9 @@
 
-# Created by https://www.gitignore.io/api/python,virtualenv,visualstudiocode
-# Edit at https://www.gitignore.io/?templates=python,virtualenv,visualstudiocode
+# Created by https://www.gitignore.io/api/python,virtualenv,visualstudiocode,dotenv
+# Edit at https://www.gitignore.io/?templates=python,virtualenv,visualstudiocode,dotenv
+
+### dotenv ###
+.env
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -111,7 +114,6 @@ dmypy.json
 # Virtualenv
 # http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
 pyvenv.cfg
-.env
 .venv
 env/
 venv/
@@ -131,4 +133,4 @@ pip-selfcheck.json
 # Ignore all local history of files
 .history
 
-# End of https://www.gitignore.io/api/python,virtualenv,visualstudiocode
+# End of https://www.gitignore.io/api/python,virtualenv,visualstudiocode,dotenv

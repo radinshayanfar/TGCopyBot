@@ -1,41 +1,35 @@
+from dotenv import load_dotenv, find_dotenv
+from os import getenv
 from telegram.client import Telegram
+
+load_dotenv(find_dotenv())
 
 ######################
 # App Configurations #
 ######################
 
-channel_id = 0
-user_id = 0
+channel_id = int(getenv("SOURCE"))
+user_id = int(getenv("DESTINATION"))
 
 ###########################
 # Telegram Configurations #
 ###########################
 
-# Proxy settings (if needed)
-proxy_type = {
-   '@type': 'proxyTypeSocks5',  # 'proxyTypeMtproto', 'proxyTypeHttp'
-}
-proxy_port = 39159
-proxy_server = 'localhost'
-
 tg = Telegram(
-    # Your app_id and api_hash obtained from my.telegram.org/apps
-    api_id='XXXXXXX',
-    api_hash='XXXXXXX',
+    api_id=getenv("API_ID"),
+    api_hash=getenv("API_HASH"),
 
-    # Your user phone number
-    phone='+989XXXXXXXXX',
+    phone=getenv("PHONE"),
 
-    # An arbitrary key for app datebase
-    database_encryption_key='myverysecretpassword',
+    database_encryption_key=getenv("DB_PASSWORD"),
+    files_directory=getenv("FILES_DIRECTORY"),
 
-    # You can change messages database with this line: (default to /tmp/.tdlib_files/...)
-    # files_directory='path/to/your/directory',
-
-    # If you need proxy:
-    # proxy_server=proxy_server,
-    # proxy_port=proxy_port,
-    # proxy_type=proxy_type,
+    proxy_server=getenv("PROXY_SERVER"),
+    proxy_port=getenv("PROXY_PORT"),
+    proxy_type={
+          # 'proxyTypeSocks5', 'proxyTypeMtproto', 'proxyTypeHttp'
+          '@type': getenv("PROXY_TYPE"),
+    },
 )
 
 ###############
@@ -44,16 +38,16 @@ tg = Telegram(
 
 def copy_message(from_chat_id: int, message_id: int, send_copy: bool = True) -> None:
     data = {
-            'chat_id': user_id,
-            'input_message_content': {
-                '@type': 'inputMessageForwarded',
-                'from_chat_id': from_chat_id,
-                'message_id': message_id,
-                'send_copy': send_copy,
-            },
-        }
+        'chat_id': user_id,
+        'input_message_content': {
+            '@type': 'inputMessageForwarded',
+            'from_chat_id': from_chat_id,
+            'message_id': message_id,
+            'send_copy': send_copy,
+        },
+    }
     result = tg.call_method(method_name='sendMessage', params=data, block=True)
-    # print(result.update)
+    print(result.update)
 
 
 def new_message_handler(update):
@@ -70,7 +64,7 @@ def new_message_handler(update):
     # We want to process only messages from specific channel
     if message_chat_id != channel_id:
         return
-    
+
     # Check if message is forwarded
     if 'forward_info' in update['message']:
         copy_message(message_chat_id, message_id, False)
@@ -81,7 +75,7 @@ def new_message_handler(update):
 if __name__ == "__main__":
     tg.login()
     result = tg.get_chats()
-    
+
     result = tg.get_chats(9223372036854775807)  # const 2^62-1: from the first
     result.wait()
     chats = result.update['chat_ids']
