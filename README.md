@@ -21,6 +21,6 @@ This bot can copy (not forward) messages from a channel (which doesn't have admi
     ```
 6. Run the script as a daemon:
      ```
-    sudo docker-comose up -d
+    sudo docker-compose up -d
     ```
 
