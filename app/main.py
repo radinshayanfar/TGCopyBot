@@ -40,14 +40,11 @@ tg = Telegram(
 def copy_message(from_chat_id: int, message_id: int, send_copy: bool = True) -> None:
     data = {
         'chat_id': dst_chat,
-        'input_message_content': {
-            '@type': 'inputMessageForwarded',
-            'from_chat_id': from_chat_id,
-            'message_id': message_id,
-            'send_copy': send_copy,
-        },
+        'from_chat_id': from_chat_id,
+        'message_ids': [message_id],
+        'send_copy': send_copy,
     }
-    result = tg.call_method(method_name='sendMessage', params=data, block=True)
+    result = tg.call_method(method_name='forwardMessages', params=data, block=True)
     # print(result.update)
 
 
