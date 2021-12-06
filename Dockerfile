@@ -1,7 +1,9 @@
-FROM ubuntu:latest
+FROM python:3.9-slim-bullseye
 
-RUN apt-get update && apt-get install -y python3 python3-dev python3-pip
+WORKDIR /app
+COPY requirements.txt .
+RUN python3 -m pip install -r requirements.txt
 
-ADD .env requirements.txt app /app/
+COPY app .
 
-RUN python3 -m pip install -r /app/requirements.txt
+CMD ["python", "main.py"]
