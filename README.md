@@ -1,3 +1,7 @@
+This bot does exactly what it is intented to do! If you want other features (e.g. editing messages, updating messages, etc), you have to customize it for yourself. Reading [python-telegram](http://python-telegram.readthedocs.io/) and [TDlib](https://core.telegram.org/tdlib/docs/) documentation may help you for doing so.
+
+**PLEASE DON'T ASK FOR NEW FEATURES!**
+
 # Telegram Copy Bot
 
 
